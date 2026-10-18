@@ -1,0 +1,38 @@
+{% extends "shop/base.html" %}
+{% block title %}menu{% endblock %}
+{% block content %}
+<h2> {{product.name}}</h2>
+     {% if product.image %}<img src="{{product.image.url}}" alt="{{product.name}}" class="product-detail-image">{% endif %}
+    <p>Ціна: {{product.price}}</p>
+    <p>Категорія: {{product.category}}</p>
+    <p>Рейтинг: {{product.rate}}</p>
+    <p>Опис: {{ product.description }}</p>
+    <p>Кількість на складі: {{ product.stock }}</p>
+    {% if product.available %}
+    <p>Є в наявності</p>
+    {% else %}
+    <p>Немає в наявності</p>
+    {% endif %}
+    {% if product.rate >= 7 %}
+    <strong>Рекомендуємо⭐</strong>
+    {% endif %}
+    {% if perms.shop.change_product %}
+    <a href="{% url 'edit_product' product.id %}">
+        Редагувати
+    </a>
+    {% endif %}
+    {% if perms.shop.delete_product %}
+    <a href="{% url 'delete_product' product.id %}">
+        Видалити
+    </a>
+    {% endif %}
+{% if user.is_authenticated %}
+<form action="{% url 'add_to_cart' product.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="button">Додати в кошик</button>
+</form>
+{% endif %}
+    <a href="{% url 'menu' %}">
+        Назад до меню
+    </a>
+{% endblock %}

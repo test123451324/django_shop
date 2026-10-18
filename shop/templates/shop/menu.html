@@ -1,0 +1,57 @@
+{% extends "shop/base.html" %}
+{% block title %}menu{% endblock %}
+{% block content %}
+    <h1>menu</h1>
+    <form method="get">
+        <label>Пошук</label>
+        <input type="text" name="search" value="{{ search|default:"" }}">
+        <button type="submit">Знайти</button>
+        <label>Категорія</label>
+        <select name="category">
+            <option value="">Усі категорії</option>
+            {% for category in categories %}
+            <option value="{{category.id}}" {% if selected_category == category.id|stringformat:"s" %}
+            selected
+            {% endif %}>
+                {{category.name}}</option>
+            {% endfor %}
+        </select>
+        <label>Сортування</label>
+        <select name="sort">
+            <option value="">Без сортування</option>
+            <option value="price">Від дешевих</option>
+            <option value="-price">Від дорогих</option>
+        </select>
+    </form>
+    {% if perms.shop.add_product %}
+    <a href="{% url 'add_product' %}">
+        Додати продукт
+    </a>
+    {% endif %}
+    {% for product  in  products %}
+    {% if product.image %}
+    <img src="{{product.image.url}}" alt="{{product.name}}" class="product-image">
+    {% else %}
+    <div class="product-image no-image">Немає фото</div>
+    {% endif %}
+    <h2>
+    <a href="{% url 'product_detail' product.id %}">
+    {{product.name}}
+    </a>
+</h2>
+    <p>Ціна: {{product.price}}</p>
+{% endfor %}
+<div class="pagination">
+    {% if products.has_previous %}
+    <a href="?page={{products.previous_page_number}}">
+    Назад
+    </a>   
+    {% endif %}
+    <span>Сторінка {{products.number}} з {{products.paginator.num_pages}}</span>
+    {% if products.has_next %}
+    <a href="?page={{products.next_page_number}}">
+    Далі
+    </a>   
+    {% endif %}
+</div>
+{% endblock %}

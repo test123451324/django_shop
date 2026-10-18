@@ -1,0 +1,16 @@
+{% extends "shop/base.html" %}
+{% block title %}Замовлення{% endblock %}
+{% block content %}
+    <h1>Замовлення №{{order.id}}</h1>
+    <p>Статус: {{order.get_status_display}}</p>
+    <p>Дата: {{order.created_at|date:"d.m.Y H:i"}}</p>   
+{% for item in order.items.all %}
+    <p>
+    {{item.product_name}}
+    x {{item.quantity}}
+    - {{item.total_price}}
+    </p>
+{%endfor%}
+    <h2>Разом: {{order.total_price}} $</h2>
+    <a href="{%url 'menu'%}">Повернутися до меню</a>
+{% endblock %}

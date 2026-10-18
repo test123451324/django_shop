@@ -1,0 +1,45 @@
+{% extends "shop/base.html" %}
+{% block title %}menu{% endblock %}
+{% block content %}
+        <h2>Додати товар</h2>
+        <form method="post" enctype="multipart/form-data">
+           {% csrf_token %}
+           {{form.as_p}}
+           {% comment %} <p>
+            <label>Назва:</label>
+            <input type="text" name="name">    
+           </p>
+           <p>
+            <label>Ціна:</label>
+            <input type="number" name="price">    
+           </p>
+           <p>
+            <label>Категорія:</label>
+            <input type="text" name="category">    
+           </p>
+           <p>
+            <label>Рейтинг:</label>
+            <input type="number" name="rate" step="0.1">    
+           </p>
+           <p>
+            <label>
+            <input type="checkbox" name="available">    В наявності:</label>
+           </p>
+           <button type="submut">
+            Додати товар
+           </button>
+           <p>
+            <label>Опис:</label>
+            <textarea name="description"></textarea>
+           </p>
+           <p>
+            <label>Кількість:</label>
+            <input type="number" name="stock">
+           </p> {% endcomment %}
+           <button type="submut">
+            Додати товар
+           </button>
+
+
+        </form>
+{% endblock %}

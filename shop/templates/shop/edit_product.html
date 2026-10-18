@@ -1,0 +1,17 @@
+{% extends "shop/base.html" %}
+{% block title %}menu{% endblock %}
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{product.name}}</title>
+</head>
+
+<body>
+    <h1>Редагувати товар</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          {{ form.as_p }}
+        <button type="submit">Зберегти зміни</button>
+    </form>
+{% endblock %}

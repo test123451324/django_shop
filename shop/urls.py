@@ -1,0 +1,26 @@
+from django.urls import path
+from . import views
+urlpatterns=[
+    path("",views.home,name="home"),
+    path("menu/",views.menu_page,name="menu"),
+    path("menu/add",views.add_product,name="add_product"),
+    path("menu/<int:product_id>/",views.product_detail,name="product_detail"), 
+    path("menu/<int:product_id>/edit/",views.edit_product,name="edit_product"), 
+    path("menu/<int:product_id>/delete/",views.delete_product,name="delete_product"), 
+    path("about/",views.about,name="about"),
+    path("contacts/",views.contacts,name="contacts"),
+    path("map/",views.map,name="map"),
+    path("job_application/",views.job_application,name="job_application"),
+    path("register/",views.register_view,name="register"),
+    path("login/",views.login_view,name="login"),
+    path("logout/",views.logout_view,name="logout"),
+    path("cart/add/<int:product_id>/",views.add_to_cart,name="add_to_cart"),
+    path("cart/",views.cart_page,name="cart"),
+    path("cart/increase/<int:item_id>/",views.increase_cart_item,name="increase_cart_item"), 
+    path("cart/decrease/<int:item_id>/",views.decrease_cart_item,name="decrease_cart_item"),   
+    path("cart/remove/<int:item_id>/",views.remove_cart_item,name="remove_cart_item"),
+    path("cart/checkout/",views.checkout,name="checkout"),
+    path("orders/<int:order_id>/success/",views.order_success,name="order_success"), 
+    path("orders/",views.my_orders,name="my_orders"),
+    path("orders/<int:order_id>/",views.order_detail,name="order_detail"),          
+]

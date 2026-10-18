@@ -1,0 +1,6 @@
+.venv/
+__pycash__/
+*.pyc 
+db.sqlite3
+media/
+staticfile/

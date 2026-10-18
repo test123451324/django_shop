@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}djangoshop{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="container header-content"> 
+            <a href="{% url 'home' %}" class="logo">djangoshop</a>
+            <nav>
+                <a href="{% url 'home' %}">Головна</a>
+                <a href="{% url 'menu' %}">Товари</a>
+                <a href="{% url 'contacts' %}">Контакти</a>
+                <a href="{% url 'map' %}">Мапа</a>
+                <a href="{% url 'about' %}">Про нас</a>
+                <a href="{% url 'job_application' %}">Влаштуватися на роботу</a>
+                {% if user.is_authenticated %}
+                <span>Hello, {{user.username}}</span>
+                <a href="{% url 'cart' %}">Кошик</a>
+                <a href="{% url 'my_orders' %}">Мої замовлення</a>
+                <a href="{% url 'logout' %}">Вийти</a>
+                {% else %}
+                <a href="{% url 'login' %}">Увійти</a>
+                <a href="{% url 'register' %}">Реєстрація</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header> 
+    <main class="container">
+            {% block content %}{% endblock %}
+    </main>
+<footer><div class="container">djangoshop</div></footer>
+</body>
+</html>

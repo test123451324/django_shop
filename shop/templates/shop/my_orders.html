@@ -1,0 +1,20 @@
+{% extends "shop/base.html" %}
+{% block title %}Мої замовлення{% endblock %}
+{% block content %}
+    <h1>Мої замовлення</h1>
+{% for order in orders %}
+<div class="order-card">
+    <div class="order-header">
+        <h2>Замовлення №{{order.id}}</h2>
+        <span>{{order.created_at|date:"d.m.Y H:i"}}</span>
+    </div>
+    <p>Статус: <span class="status status-{{order.status}}">{{order.get_status_display}}</span> </p>
+    <p>Товарів: {{order.items.all|length}}</p> 
+        <p>Разом: {{order.total_price}} $</p>
+        <a href="{%url 'order_detail' order.id%}">Детальніше</a>
+</div>
+{%empty%}
+<p>У вас немає замовлень</p>
+    <a href="{%url 'menu'%}">Повернутися до меню</a>
+{%endfor%}
+{% endblock %}

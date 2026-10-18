@@ -1,0 +1,41 @@
+{% extends "shop/base.html" %}
+{% block title %}Кошик{% endblock %}
+{% block content %}
+    <h1>Кошик</h1>
+{% for item in items %}
+<div class="product-card">
+    <h2>{{item.product.name}}</h2>
+    <p>Ціна: {{item.product.price}}</p>
+    {% comment %} <p>Кількість: {{item.quantity}}</p> {% endcomment %}
+    <div class="cart-quantity">
+        <form action="{% url 'decrease_cart_item' item.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">➖</button>
+        </form>
+        <span>{{item.quantity}}</span>
+        <form action="{% url 'increase_cart_item' item.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">➕</button>
+        </form>
+
+    </div>
+
+    <p>Сума: {{item.total_price}}</p>
+        <form action="{% url 'remove_cart_item' item.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">🚮</button>
+        </form>
+</div>
+{%empty%} 
+<p>
+    Кошик порожній
+</p>
+{% endfor %} 
+{% if items %}
+<h2>Разом: {{total}}</h2>
+<form action="{% url 'checkout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="checkout-button">Оформити замовлення📩</button>
+</form>
+{% endif %}
+{% endblock %}
